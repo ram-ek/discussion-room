@@ -12,8 +12,8 @@ const Login = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   const history = useHistory();
@@ -23,7 +23,7 @@ const Login = () => {
     setLoading(true);
     if (!email || !password) {
       toast({
-        title: "Please Fill all the Feilds",
+        title: "Please Fill all the Fields",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -59,7 +59,7 @@ const Login = () => {
       history.push("/chats");
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "Error Occurred!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -91,7 +91,7 @@ const Login = () => {
             placeholder="Enter password"
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
+            <Button h="1.75rem" size="sm" onClick={handleClick} colorScheme="blue">
               {show ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
@@ -108,7 +108,7 @@ const Login = () => {
       </Button>
       <Button
         variant="solid"
-        colorScheme="red"
+        colorScheme="orange"
         width="100%"
         onClick={() => {
           setEmail("guest@example.com");

@@ -2,29 +2,32 @@ import { Button } from "@chakra-ui/button";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
-import { useToast } from "@chakra-ui/toast";
+import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
 const Signup = () => {
-  const [show, setShow] = useState(false);
-  const handleClick = () => setShow(!show);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const togglePassword = () => setShowPassword(!showPassword);
+  const toggleConfirmPassword = () => setShowConfirmPassword(!showConfirmPassword);
+
   const toast = useToast();
   const history = useHistory();
 
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [confirmpassword, setConfirmpassword] = useState();
-  const [password, setPassword] = useState();
-  const [pic, setPic] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [pic, setPic] = useState("");
   const [picLoading, setPicLoading] = useState(false);
 
   const submitHandler = async () => {
     setPicLoading(true);
     if (!name || !email || !password || !confirmpassword) {
       toast({
-        title: "Please Fill all the Feilds",
+        title: "Please Fill all the Fields",
         status: "warning",
         duration: 5000,
         isClosable: true,
@@ -43,7 +46,7 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
+
     try {
       const config = {
         headers: {
@@ -60,7 +63,6 @@ const Signup = () => {
         },
         config
       );
-      console.log(data);
       toast({
         title: "Registration Successful",
         status: "success",
@@ -73,7 +75,7 @@ const Signup = () => {
       history.push("/chats");
     } catch (error) {
       toast({
-        title: "Error Occured!",
+        title: "Error Occurred!",
         description: error.response.data.message,
         status: "error",
         duration: 5000,
@@ -96,7 +98,6 @@ const Signup = () => {
       });
       return;
     }
-    console.log(pics);
     if (pics.type === "image/jpeg" || pics.type === "image/png") {
       const data = new FormData();
       data.append("file", pics);
@@ -109,7 +110,6 @@ const Signup = () => {
         .then((res) => res.json())
         .then((data) => {
           setPic(data.url.toString());
-          console.log(data.url.toString());
           setPicLoading(false);
         })
         .catch((err) => {
@@ -150,34 +150,34 @@ const Signup = () => {
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
-            type={show ? "text" : "password"}
+            type={showPassword ? "text" : "password"}
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+            <Button h="1.75rem" size="sm" onClick={togglePassword} colorScheme="blue">
+              {showPassword ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
-      <FormControl id="password" isRequired>
+      <FormControl id="confirm-password" isRequired>
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input
-            type={show ? "text" : "password"}
+            type={showConfirmPassword ? "text" : "password"}
             placeholder="Confirm password"
             onChange={(e) => setConfirmpassword(e.target.value)}
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick}>
-              {show ? "Hide" : "Show"}
+            <Button h="1.75rem" size="sm" onClick={toggleConfirmPassword} colorScheme="blue">
+              {showConfirmPassword ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
       <FormControl id="pic">
-        <FormLabel>Upload your Picture</FormLabel>
+        <FormLabel>Profile Picture</FormLabel>
         <Input
           type="file"
           p={1.5}
