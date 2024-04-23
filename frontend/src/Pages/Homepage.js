@@ -23,26 +23,24 @@ function Homepage() {
   }, [history]);
 
   return (
-    <Container maxW="xl" centerContent>
-      <Box
-        d="flex"
-        justifyContent="center"
-        p={3}
-        bg="white"
-        w="100%"
-        m="40px 0 15px 0"
-        borderRadius="lg"
-        borderWidth="1px"
+    <Box bg="#f5f5f5" minHeight="100vh" display="flex" justifyContent="center" alignItems="center">
+      <Container
+        className="card"
+        p={8}
+        borderRadius="20px"
+        boxShadow="0 4px 6px rgba(0, 0, 0, 0.1)"
+        transition="transform 0.3s"
+        _hover={{ transform: "scale(1.02)" }}
+        maxW="xl"
+        width="100%"
       >
-        <Text fontSize="4xl" fontFamily="Work sans">
-          Talk-A-Tive
-        </Text>
-      </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
-        <Tabs isFitted variant="soft-rounded">
-          <TabList mb="1em">
-            <Tab>Login</Tab>
-            <Tab>Sign Up</Tab>
+        <Box textAlign="center" mb={8}>
+          <Text fontSize="4xl" fontWeight="bold" color="#ffffff" bg="teal.500" p={4} borderRadius="10px">StudyChat</Text>
+        </Box>
+        <Tabs isFitted variant="unstyled">
+          <TabList mb="1em" borderBottom="1px solid teal">
+            <Tab _selected={{ color: 'teal.500', borderBottom: '2px solid teal.500' }}>Login</Tab>
+            <Tab _selected={{ color: 'teal.500', borderBottom: '2px solid teal.500' }}>Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -53,8 +51,8 @@ function Homepage() {
             </TabPanel>
           </TabPanels>
         </Tabs>
-      </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 
